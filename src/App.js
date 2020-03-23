@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/home";
 import Login from "./pages/login";
+import Signup from "./pages/signup";
 
 import "./App.css";
 
 function App() {
-  console.log("Config: ", process.env.FIREBASE_CONFIG);
   return (
     <Router>
       <div className="App">
@@ -17,6 +17,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
         </Switch>
       </div>

@@ -1,3 +1,14 @@
 .App {
   text-align: center;
 }
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  width: 50%;
+  margin: auto;
+}
+
+.inner {
+  width: 50%;
+  margin: auto;
+}

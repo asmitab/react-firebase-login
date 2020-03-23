@@ -1,13 +1,6 @@
 /* Bordered form */
 form {
   border: 3px solid #f1f1f1;
-  width: 50%;
-  margin: auto;
-}
-
-/* Add padding to containers */
-.container {
-  padding: 16px;
 }
 
 /* Full-width inputs */
@@ -35,4 +28,9 @@ button {
 /* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
+}
+
+.error {
+  color: red;
+  font-size: 0.75em;
 }
