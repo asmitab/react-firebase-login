@@ -2,8 +2,10 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import { authStates, withAuth } from "../components/auth";
-import { createNewUser } from "../service/firebase";
+import en from "../utils/i18n";
+import { createNewUser } from "../utils/firebase";
 import Loader from "../components/loader";
+import { validateEmailPassword } from "../utils/helpers";
 
 import "../styles/login.css";
 
@@ -22,45 +24,49 @@ class SignUp extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
 
     this.setState({
       [name]: value,
       error: "",
     });
+
+    //Verify that password fields match
+    if (target.type === "password") {
+      this.setState(function(state) {
+        if (state.password !== state.retype) {
+          return {
+            error: en.ERRORS.PASSWORD_MISMATCH,
+          };
+        }
+      });
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log("Event: ", event);
+    if (this.state.error) {
+      return;
+    }
+
     //Validate email & password
-    if (!this.state.email) {
+    const errorMsg = validateEmailPassword(
+      this.state.email,
+      this.state.password
+    );
+
+    if (errorMsg) {
       this.setState({
-        error: "Email is required",
-      });
-      return;
-    }
-    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    if (!emailRegex.test(this.state.email)) {
-      this.setState({
-        error: "Invalid email",
-      });
-      return;
-    }
-    if (!this.state.password) {
-      this.setState({
-        error: "Password is required",
+        error: errorMsg,
       });
       return;
     }
 
-    this.signUpInProgess = true;
     createNewUser(this.state.email, this.state.password)
       .then(() => {
         console.log("Signed Up!");
-        this.signUpInProgess = false;
       })
       .catch(e => {
         console.log("Error signing up", e);
@@ -86,17 +92,11 @@ class SignUp extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="container">
-          <input
-            type="text"
-            placeholder="Display Name"
-            name="displayname"
-            onChange={this.handleInputChange}
-            required
-          />
+          <h2>{en.GREETINGS.SIGNUP}</h2>
 
           <input
             type="text"
-            placeholder="Email"
+            placeholder={en.FORM_FIELDS.EMAIL}
             name="email"
             onChange={this.handleInputChange}
             required
@@ -104,8 +104,16 @@ class SignUp extends React.Component {
 
           <input
             type="password"
-            placeholder="Password"
+            placeholder={en.FORM_FIELDS.PASSWORD}
             name="password"
+            onChange={this.handleInputChange}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder={en.FORM_FIELDS.RETYPE_PASSWORD}
+            name="retype"
             onChange={this.handleInputChange}
             required
           />

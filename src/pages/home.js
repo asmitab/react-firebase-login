@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 import { authStates, withAuth } from "../components/auth";
-import { signOut } from "../service/firebase";
+import { signOut } from "../utils/firebase";
 import Loader from "../components/loader";
 
 function handleSignOut() {
@@ -27,7 +27,7 @@ class Home extends React.Component {
 
     return (
       <div className="container">
-        <h1>Welcome {this.props.user.email}!</h1>
+        <h2>Welcome {this.props.user.email}!</h2>
         <div className="inner">
           <button onClick={handleSignOut}> Sign Out </button>
         </div>

@@ -1,14 +1,19 @@
 .App {
   text-align: center;
 }
+
+h1 {
+  color: #635f9a;
+}
 /* Add padding to containers */
 .container {
   padding: 16px;
-  width: 50%;
+  width: 80%;
   margin: auto;
 }
 
-.inner {
-  width: 50%;
-  margin: auto;
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 33%;
+  }
 }

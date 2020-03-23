@@ -11,6 +11,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <h1>My React Firebase Login App</h1>
         <Switch>
           <Route exact path="/">
             <Home />

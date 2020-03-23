@@ -1,6 +1,6 @@
 import React from "react";
 
-import { initialize, attachAuthListener } from "../service/firebase";
+import { initialize, attachAuthListener } from "../utils/firebase";
 
 export const authStates = {
   INITIAL_VALUE: "unknown",
