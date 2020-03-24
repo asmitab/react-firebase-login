@@ -20,7 +20,6 @@ export function withAuth(WrappedComponent) {
       initialize();
       this.unsubscribe = attachAuthListener(
         function(user) {
-          //const history = createBrowserHistory();
           if (user) {
             this.setState({
               user: user,
